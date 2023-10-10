@@ -12,5 +12,3 @@ async def async_comprehension() -> List[float]:
     return [num async for num in async_generator()][:10]
 async def main():
     print(await async_comprehension())
-if __name__ == "__main__":
-    asyncio.run(main())
