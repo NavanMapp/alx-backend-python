@@ -1,31 +1,10 @@
 #!/usr/bin/env python3
 
+import asyncio
 import time
-from typing import Callable
-async def wait_n(n: int, max_delay: int) -> List[float]:
-    """
-    Spawn the wait_random coroutine 'n' times with specified 'max_delay'.
-    Return a list of delays in ascending order.
-
-    Args:
-        n (int): The number of times to spawn the coroutine.
-        max_delay (int): The maximum delay time for each coroutine.
-
-    Returns:
-        List[float]: A list of delays in ascending order.
-    """
-    delays = []
-
-    tasks = [wait_random(max_delay) for _ in range(n)]
-
-    completed_tasks = await asyncio.gather(*tasks)
-
-    for task in completed_tasks:
-        delays.append(task)
-
-    delays.sort()
-
-    return delays
+from typing import List
+from 1-concurrent_coroutines import wait_n
+from 0-basic_async_syntax import wait_random
 def measure_time(n: int, max_delay: int) -> float:
     """
     Measure the total execution time for wait_n(n, max_delay)
@@ -39,10 +18,17 @@ def measure_time(n: int, max_delay: int) -> float:
         float: Average time per call in seconds.
     """
     start_time = time.time()
-    wait_n(n, max_delay)
+
+    loop = asyncio.get_event_loop()
+
+    delays = loop.run_until_complete(wait_n(n, max_delay))
+
     end_time = time.time()
     total_time = end_time - start_time
-    return total_time / n
+
+    average_time = total_time / n
+
+    return average_time
 if __name__ == "__main__":
     n = 5
     max_delay = 9
