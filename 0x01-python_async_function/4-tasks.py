@@ -7,11 +7,13 @@ from 3-tasks import task_wait_random
 
 async def task_wait_n(n: int, max_delay: int) -> List[float]:
     """
-    Create an asyncio.Task for wait_random n times with the specified max_delay and return the sorted list of delays.
+    Create an asyncio.Task for wait_random n times with the specified
+    max_delay and return the sorted list of delays.
 
     Args:
         n (int): Number of times to call task_wait_random.
-        max_delay (int): Maximum delay in seconds for each task_wait_random call.
+        max_delay (int): Maximum delay in seconds
+        for each task_wait_random call.
 
     Returns:
         List[float]: List of delays in ascending order.
