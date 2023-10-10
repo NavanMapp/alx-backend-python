@@ -2,6 +2,8 @@
 
 import asyncio
 from typing import List
+from random import uniform
+from asyncio import gather
 async def wait_random(max_delay: int = 10) -> float:
     """
     Asynchronous coroutine that waits for a random

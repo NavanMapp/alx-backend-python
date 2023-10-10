@@ -3,7 +3,7 @@
 import asyncio
 import time
 from typing import List
-from 1-concurrent_coroutines import wait_n
+import wait_n from 1-concurrent_coroutines
 from 0-basic_async_syntax import wait_random
 def measure_time(n: int, max_delay: int) -> float:
     """
