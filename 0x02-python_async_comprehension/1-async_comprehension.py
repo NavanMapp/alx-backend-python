@@ -3,7 +3,7 @@
 import asyncio
 from typing import List
 from random import uniform
-from async_generator import async_generator  # Import the async_generator coroutine
+from async_generator import async_generator
 async def async_comprehension() -> List[float]:
     """
     This coroutine collects 10 random numbers using an async comprehension
