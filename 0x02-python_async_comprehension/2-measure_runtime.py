@@ -3,24 +3,23 @@
 import asyncio
 from typing import List
 from time import perf_counter
-from async_comprehension import async_comprehension
+async_comprehension = __import__('1-async_comprehension').async_comprehension
 async def measure_runtime() -> float:
     """
-    This coroutine executes async_comprehension
-    four times in parallel using asyncio.gather,
-    measures the total runtime, and returns it.
+    Measure the total runtime of executing async_comprehension
+    four times in parallel.
+
+    Returns:
+        float: Total runtime in seconds.
     """
-    start_time = perf_counter()
+    start_time = asyncio.get_event_loop().time()
+
     await asyncio.gather(
         async_comprehension(),
         async_comprehension(),
         async_comprehension(),
         async_comprehension()
     )
-    end_time = perf_counter()
+
+    end_time = asyncio.get_event_loop().time()
     total_runtime = end_time - start_time
-    return total_runtime
-async def main():
-    return await measure_runtime()
-if __name__ == "__main__":
-    print(asyncio.run(main()))

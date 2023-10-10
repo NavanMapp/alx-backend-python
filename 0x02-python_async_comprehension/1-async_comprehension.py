@@ -3,14 +3,13 @@
 import asyncio
 from typing import List
 from random import uniform
-from async_generator import async_generator
+async_generator = __import__('0-async_generator').async_generator
 async def async_comprehension() -> List[float]:
     """
     This coroutine collects 10 random numbers using an async comprehension
     over the async_generator coroutine and returns the list of random numbers.
     """
-    random_numbers = [number async for number in async_generator()]
-    return random_numbers
+    return [num async for num in async_generator()][:10]
 async def main():
     print(await async_comprehension())
 if __name__ == "__main__":
