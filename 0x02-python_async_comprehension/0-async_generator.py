@@ -2,7 +2,6 @@
 
 import asyncio
 import random
-
 async def async_generator():
     """
     This coroutine generates random numbers between 0 and 10 asynchronously,
@@ -17,6 +16,5 @@ async def print_yielded_values():
     async for i in async_generator():
         result.append(i)
     print(result)
-
 if __name__ == "__main__":
     asyncio.run(print_yielded_values())
