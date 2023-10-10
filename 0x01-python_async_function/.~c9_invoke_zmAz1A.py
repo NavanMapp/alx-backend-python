@@ -2,6 +2,7 @@
 
 import time
 from typing import Callable
+
 async def wait_n(n: int, max_delay: int) -> List[float]:
     """
     Spawn the wait_random coroutine 'n' times with specified 'max_delay'.
