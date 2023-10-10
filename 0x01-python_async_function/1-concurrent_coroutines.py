@@ -1,27 +1,49 @@
 #!/usr/bin/env python3
-
+"""
+This module contains asynchronous functions for concurrent processing.
+"""
 import asyncio
 from typing import List
-
-# Import the wait_random coroutine from the previous file
-from 0-basic_async_syntax import wait_random
-
-async def wait_n(n: int, max_delay: int) -> List[float]:
+async def wait_random(max_delay: int = 10) -> float:
     """
-    Asynchronous coroutine that spawns wait_random n times with the specified max_delay.
+    Asynchronous coroutine that waits for a random
+    delay between 0 and max_delay seconds.
 
     Args:
-        n (int): Number of times to call wait_random.
-        max_delay (int): Maximum delay in seconds for each wait_random call.
+        max_delay (int): The maximum delay time.
 
     Returns:
-        List[float]: List of delays in ascending order.
+        float: The generated random delay.
     """
-    delays = await asyncio.gather(*(wait_random(max_delay) for _ in range(n)))
-    return sorted(delays)
+    random_delay = random.uniform(0, max_delay)
+    await asyncio.sleep(random_delay)
+    return random_delay
+async def wait_n(n: int, max_delay: int) -> List[float]:
+    """
+    Spawn the wait_random coroutine 'n' times with specified 'max_delay'.
+    Return a list of delays in ascending order.
+
+    Args:
+        n (int): The number of times to spawn the coroutine.
+        max_delay (int): The maximum delay time for each coroutine.
+
+    Returns:
+        List[float]: A list of delays in ascending order.
+    """
+    delays = []
+
+    tasks = [wait_random(max_delay) for _ in range(n)]
+
+    completed_tasks = await asyncio.gather(*tasks)
+
+    for task in completed_tasks:
+        delays.append(task)
+
+    delays.sort()
+
+    return delays
 
 if __name__ == "__main__":
-    # Test cases
-    print(asyncio.run(wait_n(5, 5)))
-    print(asyncio.run(wait_n(10, 7)))
-    print(asyncio.run(wait_n(10, 0)))
+    import random
+
+    asyncio.run(wait_n(5, 5))
